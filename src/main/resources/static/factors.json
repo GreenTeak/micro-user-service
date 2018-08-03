@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "text": "Use Redux0",
+    "completed": false,
+    "edit": false
+  },
+  {
+    "id": 1,
+    "text": "Use Redux1",
+    "completed": false,
+    "edit": false
+  },
+  {
+    "id": 2,
+    "text": "Use Redux2",
+    "completed": false,
+    "edit": false
+  },
+  {
+    "id": 3,
+    "text": "Use Redux3",
+    "completed": false,
+    "edit": false
+  }
+]
