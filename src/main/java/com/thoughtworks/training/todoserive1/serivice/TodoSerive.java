@@ -5,7 +5,6 @@ import com.thoughtworks.training.todoserive1.model.User;
 import com.thoughtworks.training.todoserive1.repository.TodoRepository;
 import com.thoughtworks.training.todoserive1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

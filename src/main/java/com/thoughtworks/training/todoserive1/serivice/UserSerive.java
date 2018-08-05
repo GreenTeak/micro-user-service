@@ -27,7 +27,10 @@ public class UserSerive {
 
         userRepository.save(user);
     }
+    public  User findOneByName( String name){
 
+        return userRepository.findOneByName(name);
+    }
 
 
     public void deleteUser(Integer id){
