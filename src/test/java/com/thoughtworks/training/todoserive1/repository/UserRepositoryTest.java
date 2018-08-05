@@ -22,7 +22,7 @@ public class UserRepositoryTest {
 
     @Test
     public void shouldBeReturnUserWithName() {
-        userRepository.save(new User(null,"guoguo7", "guoguo7",null));
+        userRepository.save(new User(null,"guoguo7", "guoguo7"));
 
         User user = userRepository.findOneByName("guoguo7");
         //assertTrue(user == null);
