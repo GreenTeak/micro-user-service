@@ -3,6 +3,7 @@ package com.thoughtworks.training.todoserive1.serivice;
 import com.thoughtworks.training.todoserive1.model.Todo;
 import com.thoughtworks.training.todoserive1.model.User;
 import com.thoughtworks.training.todoserive1.repository.TodoRepository;
+import com.thoughtworks.training.todoserive1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,10 @@ public class TodoSerive {
 
     @Autowired
     TodoRepository todoRepository;
+    @Autowired
+    UserRepository userRepository;
 
     public List<Todo> find()throws IOException {
-        //return todoRepository.list();
         return  todoRepository.findAll();
     }
 
@@ -33,16 +35,12 @@ public class TodoSerive {
         todoRepository.delete(id);
     }
 
-    public void changeEditStatus(Integer id){
-        Todo todo = findOne(id);
-        todo.setEdit(!todo.isEdit());
-        todoRepository.save(todo);
-    }
 
-    public  List<Todo> list(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return todoRepository.findAllByUserIdEquals(user.getId());
-    }
+    public  List<Todo> list(String name) throws IOException{
 
+         //User user = userRepository.findOneByName(name);
+         User user = userRepository.findOneByName(name);
+        return todoRepository.findAllByUseridEquals(user.getId());
+    }
 
 }

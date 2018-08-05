@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -15,9 +16,10 @@ public class TodoAPI {
     TodoSerive todolistSerive;
 
     @GetMapping("/todos")
-    public List<Todo> todolist() throws IOException {
+    public List<Todo> todolist(Principal user) throws IOException {
         //List<Todo> list = todolistSerive.find();
-        return todolistSerive.find();
+
+        return todolistSerive.list(user.getName());
     }
     @GetMapping("/todos/{id}")
     public Todo findOne(@PathVariable Integer id){
@@ -33,9 +35,5 @@ public class TodoAPI {
     public void delete(@PathVariable Integer id){
         todolistSerive.delete(id);
     }
-    @PutMapping("/todos/{id}")
-    public void changeEditStatus(@PathVariable Integer id){
-        todolistSerive.changeEditStatus(id);
 
-    }
 }

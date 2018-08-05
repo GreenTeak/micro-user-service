@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface TodoRepository extends JpaRepository<Todo,Integer> {
 
-   List<Todo> findAllByUserIdEquals(Integer id);
+   List<Todo> findAllByUseridEquals(Integer id);
 
     //List<Todo> findAllByuserId(Integer userId);
 //    @Value("classpath:static/factors.json")

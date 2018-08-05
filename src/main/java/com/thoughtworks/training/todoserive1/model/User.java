@@ -15,6 +15,31 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name ="user")
 public class User {
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue
     public  Integer id;
@@ -23,7 +48,4 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public  String password;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name="userId")
-    private List<Todo> todoList;
 }
