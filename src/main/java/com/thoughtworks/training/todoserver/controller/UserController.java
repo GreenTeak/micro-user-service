@@ -32,6 +32,12 @@ public class UserController {
         return userSever.find();
     }
 
+    @PostMapping("/verifications")
+    public User verifyToken(@RequestBody String name){
+
+        return userSever.getUserByToken(name);
+    }
+
     @PostMapping("/user")
     public void addUser(@RequestBody User user) {
         userSever.addUser(user);
@@ -45,13 +51,14 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User user) {
 
-        String name = user.getName();
-        System.out.println(name);
         if (userSever.vertify(user.getName(), user.getPassword())) {
 
             HashMap<String, Object> claims = new HashMap<>();
-            claims.put("name", user.getName());
-            claims.put("password", user.getPassword());
+
+            User user1 = userSever.getUserByName(user.getName());
+
+            claims.put("id", user1.getId());
+            claims.put("name", user1.getName());
 
             String token = Jwts.builder()
                     .addClaims(claims)
@@ -59,7 +66,6 @@ public class UserController {
                     .compact();
             return ResponseEntity.ok(token);
         }
-
         return ResponseEntity.ok("aaaa");
     }
 

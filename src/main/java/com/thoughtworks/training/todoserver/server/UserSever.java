@@ -3,6 +3,7 @@ package com.thoughtworks.training.todoserver.server;
 
 import com.thoughtworks.training.todoserver.model.User;
 import com.thoughtworks.training.todoserver.repository.UserRepository;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,11 +29,9 @@ public class UserSever {
         userRepository.save(user);
     }
 
-    public User findOneByName(String name) {
-
+    public User getUserByName(String name) {
         return userRepository.findOneByName(name);
     }
-
 
     public void deleteUser(Integer id) {
         userRepository.delete(id);
@@ -44,8 +43,13 @@ public class UserSever {
         User user = userRepository.findOneByName(name);
 
         return encoder.matches(password, user.password);
-
     }
 
-
+    public User getUserByToken(String token) {
+//        String name = (String) Jwts.parser()
+//                .setSigningKey("privateKey".getBytes())
+//                .parseClaimsJws(token)
+//                .getBody().get("name");
+        return userRepository.findOneByName(token);
+    }
 }

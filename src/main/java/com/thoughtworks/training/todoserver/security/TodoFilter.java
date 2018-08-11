@@ -1,6 +1,7 @@
 package com.thoughtworks.training.todoserver.security;
 
 import com.google.common.net.HttpHeaders;
+import com.thoughtworks.training.todoserver.model.User;
 import com.thoughtworks.training.todoserver.server.UserSever;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -34,14 +35,17 @@ public class TodoFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+        System.out.println("---------------------user-------------------");
+
 
         if (!StringUtils.isEmpty(token)) {
             try {
                 if (validateToken(token)) {
-                    String name = (String) Jwts.parser()
-                            .setSigningKey(privateKey.getBytes())
-                            .parseClaimsJws(token)
-                            .getBody().get("name");
+//                    String name = (String) Jwts.parser()
+//                            .setSigningKey(privateKey.getBytes())
+//                            .parseClaimsJws(token)
+//                            .getBody().get("name");
+                    String name = token.split(":")[1];
                     SecurityContextHolder.getContext()
                             .setAuthentication(
                                     new UsernamePasswordAuthenticationToken(name,
@@ -52,22 +56,24 @@ public class TodoFilter extends OncePerRequestFilter {
                 e.printStackTrace();
             }
         }
-//        SecurityContextHolder.getContext()
-//                .setAuthentication(new UsernamePasswordAuthenticationToken("user",null, Collections.emptyList()));
         filterChain.doFilter(request, response);
     }
 
     private boolean validateToken(String token) {
 
-        Claims body = Jwts.parser()
-                .setSigningKey(privateKey.getBytes())
-                .parseClaimsJws(token)
-                .getBody();
+//        Claims body = Jwts.parser()
+//                .setSigningKey(privateKey.getBytes())
+//                .parseClaimsJws(token)
+//                .getBody();
+//
+//        String name = (String) body.get("name");
+//        String password = (String) body.get("password");
 
-        String name = (String) body.get("name");
-        String password = (String) body.get("password");
+        String[] userInfo = token.split(":");
 
-        return userSever.vertify(name, password);
+        User user =userSever.getUserByName(userInfo[1]);
+
+        return user!=null;
     }
 
 }
