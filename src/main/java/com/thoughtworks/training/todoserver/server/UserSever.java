@@ -27,6 +27,7 @@ public class UserSever {
         user.setPassword(encoder.encode(user.getPassword()));
 
         userRepository.save(user);
+
     }
 
     public User getUserByName(String name) {

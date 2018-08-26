@@ -22,7 +22,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    public Integer id;
+    public int id;
     public String name;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

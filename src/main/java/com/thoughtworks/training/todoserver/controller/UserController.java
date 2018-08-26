@@ -27,29 +27,32 @@ public class UserController {
     @Value("privateKey")
     private String privateKey;
 
-    @GetMapping("/user")
+    @GetMapping("/users")
     public List<User> userList() {
         return userSever.find();
     }
 
     @PostMapping("/verifications")
     public User verifyToken(@RequestBody String name){
-
         return userSever.getUserByToken(name);
     }
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     public void addUser(@RequestBody User user) {
+
         userSever.addUser(user);
+
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable Integer id) {
         userSever.deleteUser(id);
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody User user) {
+
+        System.out.println(user.getName());
 
         if (userSever.vertify(user.getName(), user.getPassword())) {
 
@@ -64,6 +67,8 @@ public class UserController {
                     .addClaims(claims)
                     .signWith(SignatureAlgorithm.HS512, privateKey.getBytes())
                     .compact();
+
+            System.out.println(token);
             return ResponseEntity.ok(token);
         }
         return ResponseEntity.ok("aaaa");

@@ -52,6 +52,7 @@ dependencies {
 //	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix')
 	compile('org.springframework.cloud:spring-cloud-starter-hystrix-dashboard')
+	compile('org.springframework.cloud:spring-cloud-starter-config')
 }
 tasks.withType(Checkstyle) {
 	reports {
